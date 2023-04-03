@@ -1,24 +1,21 @@
 package service
 
 import (
-	"fmt"
+	"onelab/internal/model"
 	"onelab/internal/repository"
 )
 
 type IUserService interface {
-	Create()
-	Delete()
-	Update()
-	Get()
+	Create(user *model.User) error
+	Get(id int) (*model.User, error)
 }
 
 type Service struct {
 	User IUserService
 }
 
-func NewService(repo repository.Repository) *Service {
-	fmt.Println(repo.User.)
+func NewService(repo *repository.Manager) *Service {
 	return &Service{
-		User: repo.User,
+		User: NewUserService(repo.User),
 	}
 }

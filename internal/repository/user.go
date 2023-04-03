@@ -1,25 +1,42 @@
 package repository
 
-import "onelab/internal/model"
+import (
+	"sync"
 
-type userRepository struct {
-	db map[int]model.User
+	"onelab/internal/model"
+)
+
+type UserRepository struct {
+	mu      sync.RWMutex
+	counter int
+	db      map[int]*model.User
 }
 
-func NewUserRepository() *userRepository {
-	return &userRepository{
-		db: map[int]model.User{},
+func NewUserRepository() *UserRepository {
+	return &UserRepository{
+		db: make(map[int]*model.User),
 	}
 }
 
-func (r *userRepository) Create() {
+func (r *UserRepository) Create(user *model.User) error {
+	r.mu.Lock()
+	defer r.mu.Unlock()
+
+	r.counter++
+	user.ID = r.counter
+	r.db[user.ID] = user
+
+	return nil
 }
 
-func (r *userRepository) Get() {
-}
+func (r *UserRepository) Get(id int) (*model.User, error) {
+	r.mu.RLock()
+	defer r.mu.RUnlock()
 
-func (r *userRepository) Update() {
-}
+	user, ok := r.db[id]
+	if !ok {
+		return nil, model.ErrRecordNotFound
+	}
 
-func (r *userRepository) Delete() {
+	return user, nil
 }

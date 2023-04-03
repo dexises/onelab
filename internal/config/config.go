@@ -5,14 +5,17 @@ import (
 )
 
 type Config struct {
-	Addr string
+	Port     string
+	LogLevel string
 }
 
-func Load() *Config {
-	addr := getEnv("ADDR", ":8080")
-	return &Config{
-		Addr: addr,
+func New() *Config {
+	port := getEnv("PORT", "8080")
+	cfg := &Config{
+		Port: port,
 	}
+
+	return cfg
 }
 
 func getEnv(key, defaultValue string) string {
