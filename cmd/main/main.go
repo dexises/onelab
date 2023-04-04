@@ -12,18 +12,8 @@ import (
 	"onelab/internal/transport"
 )
 
-type application struct {
-	errorLog *log.Logger
-	infoLog  *log.Logger
-	config   config.Config
-}
-
 func main() {
-	// infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
-	// errorLog := log.New(os.Stdout, "ERROR\t", log.Ldate|log.Ltime|log.Llongfile)
-	// cfg := config.Load()
-
-	log.Fatalln(fmt.Sprintf("Service shut down %v", run()))
+	log.Fatalf(fmt.Sprintf("Service shut down %v", run()))
 }
 
 func run() error {
@@ -33,9 +23,11 @@ func run() error {
 
 	repo := repository.NewRepository()
 
-	service := service.NewService(repo)
+	service := service.NewService(repo, logger)
 
 	router := transport.NewRouter(service)
 
+	err := transport.NewServer(cfg, logger, router)
+	logger.PrintFatal(err, nil)
 	return nil
 }

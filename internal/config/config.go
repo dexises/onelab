@@ -5,12 +5,11 @@ import (
 )
 
 type Config struct {
-	Port     string
-	LogLevel string
+	Port string
 }
 
 func New() *Config {
-	port := getEnv("PORT", "8080")
+	port := getEnv("PORT", ":8080")
 	cfg := &Config{
 		Port: port,
 	}

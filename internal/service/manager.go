@@ -1,6 +1,7 @@
 package service
 
 import (
+	"onelab/internal/jsonlog"
 	"onelab/internal/model"
 	"onelab/internal/repository"
 )
@@ -14,8 +15,8 @@ type Service struct {
 	User IUserService
 }
 
-func NewService(repo *repository.Manager) *Service {
+func NewService(repo *repository.Manager, logger *jsonlog.Logger) *Service {
 	return &Service{
-		User: NewUserService(repo.User),
+		User: NewUserService(repo.User, logger),
 	}
 }

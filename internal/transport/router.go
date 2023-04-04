@@ -5,14 +5,15 @@ import (
 
 	"onelab/internal/service"
 
-	"github.com/julienschmidt/httprouter"
+	"github.com/gorilla/mux"
 )
 
-func NewRouter(userManager *service.Service) http.Handler {
-	router := httprouter.New()
+func NewRouter(svc *service.Service) http.Handler {
+	r := mux.NewRouter()
 
-	router.POST("/user", createUserHandler)
-	router.GET("/user/:id", showUserHandler)
+	r.Use(logRequest)
 
+	r.HandleFunc("/users", createUserHandler(svc)).Methods("POST")
+	r.HandleFunc("/users/{id}", getUserByIDHandler(svc)).Methods("GET")
 	return r
 }
