@@ -1,15 +1,13 @@
 package repository
 
 import (
-	"sync"
-
 	"onelab/internal/model"
+
+	"gorm.io/gorm"
 )
 
 type UserRepository struct {
-	mu      sync.RWMutex
-	counter int
-	db      map[int]*model.User
+	db *gorm.DB
 }
 
 func NewUserRepository() *UserRepository {

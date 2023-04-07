@@ -4,17 +4,18 @@ import (
 	"context"
 	"errors"
 	"net/http"
-	"onelab/internal/config"
-	"onelab/internal/jsonlog"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	"onelab/internal/config"
+	"onelab/internal/jsonlog"
 )
 
 func NewServer(cfg *config.Config, logger *jsonlog.Logger, handler http.Handler) error {
 	srv := &http.Server{
-		Addr:         cfg.Port,
+		Addr:         cfg.HTTP.HttpPort,
 		Handler:      handler,
 		IdleTimeout:  time.Minute,
 		ReadTimeout:  10 * time.Second,

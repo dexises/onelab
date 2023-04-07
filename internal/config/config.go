@@ -5,14 +5,34 @@ import (
 )
 
 type Config struct {
-	Port string
+	HTTP HTTPConf
+	DB   DBConf
+}
+
+type DBConf struct {
+	Host     string
+	Port     string
+	User     string
+	Password string
+	DBName   string
+	Sslmode  string
+}
+
+type HTTPConf struct {
+	HttpPort string
 }
 
 func New() *Config {
-	port := getEnv("PORT", ":8080")
-	cfg := &Config{
-		Port: port,
-	}
+	cfg := &Config{}
+
+	cfg.HTTP.HttpPort = getEnv("HTTP_PORT", ":8080")
+
+	cfg.DB.Host = getEnv("DB_HOST", "localhost")
+	cfg.DB.Port = getEnv("DB_PORT", "5432")
+	cfg.DB.User = getEnv("DB_USER", "postgres")
+	cfg.DB.Password = getEnv("DB_PASS", "postgres")
+	cfg.DB.DBName = getEnv("DB_NAME", "postgres")
+	cfg.DB.Sslmode = getEnv("DB_SSLMODE", "disable")
 
 	return cfg
 }

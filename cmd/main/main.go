@@ -10,6 +10,8 @@ import (
 	"onelab/internal/repository"
 	"onelab/internal/service"
 	"onelab/internal/transport"
+
+	_ "github.com/joho/godotenv/autoload"
 )
 
 func main() {
@@ -18,6 +20,7 @@ func main() {
 
 func run() error {
 	cfg := config.New()
+	fmt.Println(cfg)
 
 	logger := jsonlog.New(os.Stdout, jsonlog.LevelInfo)
 
