@@ -12,7 +12,7 @@ import (
 	"onelab/internal/config"
 	"onelab/internal/jsonlog"
 )
-
+// это нужно переместить в transport/http/server.go по аналогии с repo
 func NewServer(cfg *config.Config, logger *jsonlog.Logger, handler http.Handler) error {
 	srv := &http.Server{
 		Addr:         cfg.HTTP.HttpPort,
