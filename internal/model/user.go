@@ -1,12 +1,16 @@
 package model
 
-import "errors"
+import (
+	"errors"
+
+	"gorm.io/gorm"
+)
 
 var ErrRecordNotFound = errors.New("record not found")
 
 type User struct {
-	ID       int
-	Name     string
-	Login    string
-	Password []byte
+	gorm.Model
+	Name         string `gorm:"not null"`
+	Email        string `gorm:"not null;unique"`
+	PasswordHash string `gorm:"not null"`
 }

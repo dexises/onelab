@@ -1,22 +1,27 @@
 package service
 
 import (
-	"onelab/internal/jsonlog"
+	"context"
+
 	"onelab/internal/model"
 	"onelab/internal/repository"
 )
 
 type IUserService interface {
-	Create(user *model.User) error
-	Get(id int) (*model.User, error)
+	Create(ctx context.Context, user model.User) error
+	Get(ctx context.Context, id int) (model.User, error)
+	Update(ctx context.Context, user model.User) error
 }
 
-type Service struct {
+type IbookRepository interface{}
+
+type Manager struct {
 	User IUserService
+	Book IbookRepository
 }
 
-func NewService(repo *repository.Manager, logger *jsonlog.Logger) *Service {
-	return &Service{
-		User: NewUserService(repo.User, logger),
+func NewService(repo *repository.Manager) (*Manager, error) {
+	return &Manager{
+		User: NewUserService(repo.User),
 	}
 }
