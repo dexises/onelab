@@ -2,41 +2,73 @@ package service
 
 import (
 	"context"
+	"errors"
 
-	"onelab/internal/jsonlog"
 	"onelab/internal/model"
 	"onelab/internal/repository"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
-type UserService struct {
-	repo repository.IUserRepository
+type IUserService interface {
+	Create(ctx context.Context, user model.User) error
+	Get(ctx context.Context, id int) (model.User, error)
+	Update(ctx context.Context, user model.User) error
 }
 
-func NewUserService(repo repository.IUserRepository, logger *jsonlog.Logger) *UserService {
+type UserService struct {
+	repo *repository.Manager
+}
+
+func NewUserService(repo *repository.Manager) *UserService {
 	return &UserService{
 		repo: repo,
 	}
 }
 
 func (s *UserService) Create(ctx context.Context, user model.User) error {
-	// validation
-
-	err := s.repo.Create(ctx, user)
+	// TODO user validation
+	var err error
+	user.PasswordHash, err = s.SetPassword(user.PasswordHash)
 	if err != nil {
-		s.logger.PrintError(err, map[string]string{
-			"Name":  user.Name,
-			"Login": user.Login,
-		})
 		return err
 	}
 
-	s.logger.PrintInfo("user saved to database", map[string]string{
-		"Name":  user.Name,
-		"Login": user.Login,
-	})
-	return nil
+	return s.repo.User.Create(ctx, user)
 }
 
-func (s *UserService) Get(id int) (*model.User, error) {
-	return s.repo.Get(id)
+func (s *UserService) Get(ctx context.Context, id int) (model.User, error) {
+	if id < 1 {
+		return model.User{}, errors.New("invalid id parameter")
+	}
+
+	user, err := s.repo.User.Get(ctx, id)
+	if err != nil {
+		return model.User{}, err
+	}
+
+	return user, nil
+}
+
+func (s *UserService) Update(ctx context.Context, user model.User) error {
+	extUser, err := s.repo.User.Get(ctx, int(user.ID))
+	if err != nil {
+		return err
+	}
+
+	extUser.PasswordHash, err = s.SetPassword(user.PasswordHash)
+	if err != nil {
+		return err
+	}
+
+	return s.repo.User.Update(ctx, extUser)
+}
+
+func (s *UserService) SetPassword(password string) (string, error) {
+	hash, err := bcrypt.GenerateFromPassword([]byte(password), 12)
+	if err != nil {
+		return "", err
+	}
+
+	return string(hash), nil
 }

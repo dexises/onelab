@@ -1,61 +1,24 @@
 package handler
 
-// func CreateUserHandler(s *service.Service) http.HandlerFunc {
-// 	return func(w http.ResponseWriter, r *http.Request) {
-// 		var input struct {
-// 			Name     string `json:"name"`
-// 			Login    string `json:"username"`
-// 			Password string `json:"password"`
-// 		}
-// 		err := json.NewDecoder(r.Body).Decode(&input)
-// 		if err != nil {
-// 			http.Error(w, "Invalid request body", http.StatusBadRequest)
-// 			return
-// 		}
+import (
+	"net/http"
 
-// 		user := model.User{
-// 			Name:     input.Name,
-// 			Login:    input.Login,
-// 			Password: input.Password,
-// 		}
+	"github.com/labstack/echo/v4"
+)
 
-// 		err = s.User.Create(&user)
-// 		if err != nil {
-// 			http.Error(w, err.Error(), http.StatusInternalServerError)
-// 			return
-// 		}
+func (h Manager) CreateUser(c echo.Context) error {
+	lock.Lock()
+	defer lock.Unlock()
 
-// 		resp := map[string]interface{}{
-// 			"id":    user.ID,
-// 			"name":  user.Name,
-// 			"login": user.Login,
-// 		}
-// 		json.NewEncoder(w).Encode(resp)
-// 	}
-// }
+	// var user model.User
 
-// func GetUserByIDHandler(s *service.Manager) http.HandlerFunc {
-// 	return func(w http.ResponseWriter, r *http.Request) {
-// 		vars := mux.Vars(r)
-// 		userIDStr := vars["id"]
-// 		userID, err := strconv.Atoi(userIDStr)
-// 		if err != nil {
-// 			http.Error(w, "Invalid user ID", http.StatusBadRequest)
-// 			return
-// 		}
+	// if err := c.
+}
 
-// 		user, err := s.User.Get(userID)
-// 		if err != nil {
-// 			http.Error(w, err.Error(), http.StatusInternalServerError)
-// 			return
-// 		}
+func (h Manager) GetUserByID(c echo.Context) error {
+	return c.JSON(http.StatusOK, "Hello world")
+}
 
-// 		jsonUser, err := json.Marshal(user)
-// 		if err != nil {
-// 			http.Error(w, err.Error(), http.StatusInternalServerError)
-// 			return
-// 		}
-// 		w.Header().Set("Content-Type", "application/json")
-// 		w.Write(jsonUser)
-// 	}
-// }
+func (h Manager) UpdateUser(c echo.Context) error {
+	return c.JSON(http.StatusOK, "Hello world")
+}

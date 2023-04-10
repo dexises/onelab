@@ -30,8 +30,9 @@ func NewServer(cfg *config.Config, handler *handler.Manager) *Server {
 	}
 }
 
-func (s *Server) StartServer(ctx context.Context, logger jsonlog.Logger) error {
-	s.App = s.BuildEngine()
+func (s *Server) StartServer(ctx context.Context, logger *jsonlog.Logger) error {
+	s.App = s.BuildEngine(logger)
+	s.NewRouter()
 	shotdownError := make(chan error)
 
 	go func() {
@@ -70,15 +71,14 @@ func (s *Server) StartServer(ctx context.Context, logger jsonlog.Logger) error {
 	return nil
 }
 
-func (s *Server) BuildEngine() *echo.Echo {
+func (s *Server) BuildEngine(l *jsonlog.Logger) *echo.Echo {
 	e := echo.New()
 
 	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		AllowOrigins: []string{"*"},
 		AllowHeaders: []string{"*"},
 	}))
-	l := jsonlog.New(os.Stdout, jsonlog.LevelInfo)
-	e.Use(middleware.RequestID())
+	// e.Use(middleware.RequestID())
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogURI:    true,
 		LogStatus: true,
