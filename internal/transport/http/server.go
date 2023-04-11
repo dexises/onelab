@@ -78,7 +78,6 @@ func (s *Server) BuildEngine(l *jsonlog.Logger) *echo.Echo {
 		AllowOrigins: []string{"*"},
 		AllowHeaders: []string{"*"},
 	}))
-	// e.Use(middleware.RequestID())
 	e.Use(middleware.RequestLoggerWithConfig(middleware.RequestLoggerConfig{
 		LogURI:    true,
 		LogStatus: true,

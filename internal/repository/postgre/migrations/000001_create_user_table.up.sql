@@ -5,5 +5,5 @@ CREATE TABLE IF NOT EXISTS users (
     deleted_at timestamp(0) with time zone NOT NULL DEFAULT NOW(),
     name TEXT NOT NULL,
     email TEXT UNIQUE NOT NULL,
-    password_hash bytea NOT NULL
+    password_hash TEXT NOT NULL
 );

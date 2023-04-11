@@ -13,7 +13,7 @@ import (
 type IUserService interface {
 	Create(ctx context.Context, user model.User) error
 	Get(ctx context.Context, id int) (model.User, error)
-	Update(ctx context.Context, user model.User) error
+	Update(ctx context.Context, user model.User, id int) error
 }
 
 type UserService struct {
@@ -50,18 +50,22 @@ func (s *UserService) Get(ctx context.Context, id int) (model.User, error) {
 	return user, nil
 }
 
-func (s *UserService) Update(ctx context.Context, user model.User) error {
-	extUser, err := s.repo.User.Get(ctx, int(user.ID))
+func (s *UserService) Update(ctx context.Context, user model.User, id int) error {
+	extUser, err := s.repo.User.Get(ctx, id)
 	if err != nil {
 		return err
 	}
 
 	extUser.PasswordHash, err = s.SetPassword(user.PasswordHash)
 	if err != nil {
-		return err
+		return errors.New("generate password error")
 	}
 
-	return s.repo.User.Update(ctx, extUser)
+	if extUser.Email != user.Email {
+		return errors.New("Email address is not correct")
+	}
+
+	return s.repo.User.Update(ctx, extUser, id)
 }
 
 func (s *UserService) SetPassword(password string) (string, error) {
