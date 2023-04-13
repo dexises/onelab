@@ -13,7 +13,7 @@ import (
 type IUserService interface {
 	Create(ctx context.Context, user model.User) error
 	Get(ctx context.Context, id int) (model.User, error)
-	Update(ctx context.Context, user model.User, id int) error
+	Update(ctx context.Context, user model.User) error
 }
 
 type UserService struct {
@@ -34,7 +34,8 @@ func (s *UserService) Create(ctx context.Context, user model.User) error {
 		return err
 	}
 
-	return s.repo.User.Create(ctx, user)
+	err = s.repo.User.Create(ctx, user)
+	return err
 }
 
 func (s *UserService) Get(ctx context.Context, id int) (model.User, error) {
@@ -50,8 +51,8 @@ func (s *UserService) Get(ctx context.Context, id int) (model.User, error) {
 	return user, nil
 }
 
-func (s *UserService) Update(ctx context.Context, user model.User, id int) error {
-	extUser, err := s.repo.User.Get(ctx, id)
+func (s *UserService) Update(ctx context.Context, user model.User) error {
+	extUser, err := s.repo.User.Get(ctx, int(user.ID))
 	if err != nil {
 		return err
 	}
@@ -65,7 +66,7 @@ func (s *UserService) Update(ctx context.Context, user model.User, id int) error
 		return errors.New("Email address is not correct")
 	}
 
-	return s.repo.User.Update(ctx, extUser, id)
+	return s.repo.User.Update(ctx, extUser)
 }
 
 func (s *UserService) SetPassword(password string) (string, error) {

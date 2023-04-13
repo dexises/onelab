@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"fmt"
 	"net/http"
 	"strconv"
 
@@ -18,10 +19,11 @@ func (h Manager) CreateUser(c echo.Context) error {
 
 	err := h.srv.User.Create(c.Request().Context(), user)
 	if err != nil {
+		fmt.Println(err)
 		return c.JSON(http.StatusBadGateway, err)
 	}
 
-	return c.JSON(http.StatusOK, "User successfuly created %d")
+	return c.JSON(http.StatusOK, "User successfuly created")
 }
 
 func (h Manager) GetUserByID(c echo.Context) error {

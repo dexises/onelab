@@ -33,9 +33,9 @@ func run() error {
 		log.Fatal(err.Error())
 	}
 
-	service := service.NewService(repo)
+	srv := service.NewService(repo)
 
-	h := handler.NewManager(cfg, service)
+	h := handler.NewManager(cfg, srv)
 
 	server := http.NewServer(cfg, h)
 

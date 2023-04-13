@@ -16,12 +16,24 @@ type IUserRepository interface {
 	Update(ctx context.Context, user model.User) error
 }
 
-type IbookRepository interface{}
+type IBookRepository interface {
+	Create(ctx context.Context, book model.Book) error
+	Get(ctx context.Context, id int) (model.Book, error)
+	GetAll(ctx context.Context) ([]model.Book, error)
+}
+
+type ILibraryRepository interface {
+	GiveBook(ctx context.Context, item model.CreateBookReader) error
+	ReturnBook(ctx context.Context, bookReader model.BookReader) error
+	List(ctx context.Context) ([]model.BookReader, error)
+	ListMonth(ctx context.Context) ([]model.BookReader, error)
+}
 
 type Manager struct {
-	pg   *gorm.DB
-	User IUserRepository
-	Book IbookRepository
+	pg      *gorm.DB
+	User    IUserRepository
+	Book    IBookRepository
+	Library ILibraryRepository
 }
 
 func NewRepository(ctx context.Context, cfg *config.Config) (*Manager, error) {
@@ -31,7 +43,9 @@ func NewRepository(ctx context.Context, cfg *config.Config) (*Manager, error) {
 	}
 
 	return &Manager{
-		pg:   db,
-		User: postgre.NewUserRepo(db),
+		pg:      db,
+		User:    postgre.NewUserRepo(db),
+		Book:    postgre.NewBookRepo(db),
+		Library: postgre.NewLibraryRepo(db),
 	}, nil
 }

@@ -8,7 +8,7 @@ import (
 var ErrRecordNotFound = errors.New("record not found")
 
 type User struct {
-	ID           uint      `gorm:"primarykey" json:"-"`
+	ID           uint      `gorm:"primaryKey" json:"id,omitempty"`
 	CreatedAt    time.Time `json:"created_at"`
 	UpdatedAt    time.Time `json:"updated_at"`
 	Name         string    `gorm:"not null"`
