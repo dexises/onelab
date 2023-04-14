@@ -14,6 +14,7 @@ type IUserRepository interface {
 	Create(ctx context.Context, user model.User) error
 	Get(ctx context.Context, id int) (model.User, error)
 	Update(ctx context.Context, user model.User) error
+	GetByEmail(ctx context.Context, email string) (model.User, error)
 }
 
 type IBookRepository interface {

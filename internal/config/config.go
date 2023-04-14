@@ -5,8 +5,9 @@ import (
 )
 
 type Config struct {
-	HTTP HTTPConf
-	DB   DBConf
+	HTTP     HTTPConf
+	DB       DBConf
+	JwtToken string
 }
 
 type DBConf struct {
@@ -26,6 +27,8 @@ func New() *Config {
 	cfg := &Config{}
 
 	cfg.HTTP.HttpPort = getEnv("HTTP_PORT", ":8080")
+
+	cfg.JwtToken = getEnv("JwtTokenSecret", "abracadabra")
 
 	cfg.DB.Host = getEnv("DB_HOST", "localhost")
 	cfg.DB.Port = getEnv("DB_PORT", "5432")

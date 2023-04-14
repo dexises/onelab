@@ -33,7 +33,7 @@ func run() error {
 		log.Fatal(err.Error())
 	}
 
-	srv := service.NewService(repo)
+	srv := service.NewService(cfg, repo)
 
 	h := handler.NewManager(cfg, srv)
 

@@ -10,6 +10,30 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+func (h Manager) LoginUser(c echo.Context) error {
+	var input model.Login
+
+	if err := c.Bind(&input); err != nil {
+		return c.JSON(http.StatusBadRequest, err)
+	}
+
+	if err := h.srv.User.Auth(c.Request().Context(), model.User{
+		Email:        input.Email,
+		PasswordHash: input.Password,
+	}); err != nil {
+		return c.JSON(http.StatusUnauthorized, err)
+	}
+
+	token, err := h.srv.Jwt.GenerateToken(input.Email)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err)
+	}
+
+	return c.JSON(http.StatusOK, echo.Map{
+		"token": token,
+	})
+}
+
 func (h Manager) CreateUser(c echo.Context) error {
 	var user model.User
 

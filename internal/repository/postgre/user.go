@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"errors"
-
 	"onelab/internal/model"
 
 	"gorm.io/gorm"
@@ -18,6 +17,15 @@ func NewUserRepo(DB *gorm.DB) *UserRepo {
 	return &UserRepo{
 		DB: DB,
 	}
+}
+
+func (r *UserRepo) GetByEmail(ctx context.Context, email string) (model.User, error) {
+	var user model.User
+	if err := r.DB.WithContext(ctx).Table("users").Where("email = ?", email).First(&user).Error; err != nil {
+		return model.User{}, err
+	}
+
+	return user, nil
 }
 
 func (r *UserRepo) Create(ctx context.Context, user model.User) error {

@@ -3,7 +3,6 @@ package service
 import (
 	"context"
 	"errors"
-
 	"onelab/internal/model"
 	"onelab/internal/repository"
 
@@ -14,6 +13,7 @@ type IUserService interface {
 	Create(ctx context.Context, user model.User) error
 	Get(ctx context.Context, id int) (model.User, error)
 	Update(ctx context.Context, user model.User) error
+	Auth(ctx context.Context, user model.User) error
 }
 
 type UserService struct {
@@ -24,6 +24,19 @@ func NewUserService(repo *repository.Manager) *UserService {
 	return &UserService{
 		repo: repo,
 	}
+}
+
+func (s *UserService) Auth(ctx context.Context, user model.User) error {
+	userFromDB, err := s.repo.User.GetByEmail(ctx, user.Email)
+	if err != nil {
+		return err
+	}
+
+	if err := bcrypt.CompareHashAndPassword([]byte(userFromDB.PasswordHash), []byte(user.PasswordHash)); err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func (s *UserService) Create(ctx context.Context, user model.User) error {

@@ -19,7 +19,7 @@ func (h Manager) GiveBook(c echo.Context) error {
 		return err
 	}
 
-	return c.JSON(http.StatusOK, "Your book loan is created")
+	return c.JSON(http.StatusOK, "Thanks for picking up the book")
 }
 
 func (h Manager) ReturnBook(c echo.Context) error {

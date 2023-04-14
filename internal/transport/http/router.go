@@ -3,6 +3,8 @@ package http
 func (s *Server) NewRouter() {
 	v1 := s.App.Group("/api/v1")
 
+	v1.POST("/login", s.handler.LoginUser)
+
 	users := v1.Group("/users")
 	users.POST("/", s.handler.CreateUser)
 	users.GET("/:id", s.handler.GetUserByID)
