@@ -10,9 +10,9 @@ import (
 )
 
 type IUserService interface {
-	Create(ctx context.Context, user model.User) error
+	Create(ctx context.Context, user model.User) (uint, error)
 	Get(ctx context.Context, id int) (model.User, error)
-	Update(ctx context.Context, user model.User) error
+	Update(ctx context.Context, user model.Login) error
 	Auth(ctx context.Context, user model.User) error
 }
 
@@ -39,20 +39,25 @@ func (s *UserService) Auth(ctx context.Context, user model.User) error {
 	return nil
 }
 
-func (s *UserService) Create(ctx context.Context, user model.User) error {
+func (s *UserService) Create(ctx context.Context, user model.User) (uint, error) {
 	// TODO user validation
-	var err error
-	user.PasswordHash, err = s.SetPassword(user.PasswordHash)
-	if err != nil {
-		return err
+	if len(user.PasswordHash) > 0 {
+		var err error
+		user.PasswordHash, err = s.SetPassword(user.PasswordHash)
+		if err != nil {
+			return 0, err
+		}
 	}
 
-	err = s.repo.User.Create(ctx, user)
-	return err
+	id, err := s.repo.User.Create(ctx, user)
+	if err != nil {
+		return 0, err
+	}
+	return id, err
 }
 
 func (s *UserService) Get(ctx context.Context, id int) (model.User, error) {
-	if id < 1 {
+	if !ValidID(id) {
 		return model.User{}, errors.New("invalid id parameter")
 	}
 
@@ -64,22 +69,14 @@ func (s *UserService) Get(ctx context.Context, id int) (model.User, error) {
 	return user, nil
 }
 
-func (s *UserService) Update(ctx context.Context, user model.User) error {
-	extUser, err := s.repo.User.Get(ctx, int(user.ID))
-	if err != nil {
-		return err
-	}
-
-	extUser.PasswordHash, err = s.SetPassword(user.PasswordHash)
+func (s *UserService) Update(ctx context.Context, user model.Login) error {
+	var err error
+	user.Password, err = s.SetPassword(user.Password)
 	if err != nil {
 		return errors.New("generate password error")
 	}
 
-	if extUser.Email != user.Email {
-		return errors.New("Email address is not correct")
-	}
-
-	return s.repo.User.Update(ctx, extUser)
+	return s.repo.User.Update(ctx, user)
 }
 
 func (s *UserService) SetPassword(password string) (string, error) {
@@ -89,4 +86,8 @@ func (s *UserService) SetPassword(password string) (string, error) {
 	}
 
 	return string(hash), nil
+}
+
+func ValidID(id int) bool {
+	return id >= 1
 }

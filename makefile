@@ -4,3 +4,9 @@ create_db:
 .PHONY: migrate_up
 migrate_up:
 	migrate -path internal/repository/postgre/migrations -database "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable" up
+.PHONY: migrate_down
+migrate_down:
+	migrate -path internal/repository/postgre/migrations -database "postgres://postgres:postgres@localhost:5432/postgres?sslmode=disable" down
+.PHONY: enter_db
+enter_db:
+	docker exec -it postgres psql -U postgres

@@ -4,6 +4,7 @@ import (
 	"context"
 	"onelab/internal/model"
 	"onelab/internal/repository"
+	"time"
 )
 
 type ILibraryService interface {
@@ -25,14 +26,12 @@ func NewLibraryService(repo *repository.Manager) *LibraryService {
 
 func (s LibraryService) GiveBook(ctx context.Context, item model.CreateBookReader) error {
 	//validation
-	if err := s.Repo.Library.GiveBook(ctx, item); err != nil {
-		return err
-	}
-	return nil
+	return s.Repo.Library.GiveBook(ctx, item)
 }
 
 func (s LibraryService) ReturnBook(ctx context.Context, bookReader model.BookReader) error {
 	//validation
+	bookReader.ReturnedAt = time.Now()
 	if err := s.Repo.Library.ReturnBook(ctx, bookReader); err != nil {
 		return err
 	}

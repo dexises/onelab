@@ -19,10 +19,7 @@ func NewLibraryRepo(db *gorm.DB) *LibraryRepo {
 
 func (r *LibraryRepo) GiveBook(ctx context.Context, item model.CreateBookReader) error {
 	item.TakenAt = time.Now()
-	if err := r.DB.WithContext(ctx).Table("books_readers").Create(&item).Error; err != nil {
-		return err
-	}
-	return nil
+	return r.DB.WithContext(ctx).Table("books_readers").Create(&item).Error
 }
 
 func (r *LibraryRepo) ReturnBook(ctx context.Context, bookReader model.BookReader) error {

@@ -2,7 +2,6 @@ package postgre
 
 import (
 	"context"
-	"database/sql"
 	"errors"
 	"onelab/internal/model"
 
@@ -28,14 +27,18 @@ func (r *UserRepo) GetByEmail(ctx context.Context, email string) (model.User, er
 	return user, nil
 }
 
-func (r *UserRepo) Create(ctx context.Context, user model.User) error {
-	return r.DB.WithContext(ctx).Table("users").Omit("deleted_at").Create(&user).Error
+func (r *UserRepo) Create(ctx context.Context, user model.User) (uint, error) {
+	result := r.DB.WithContext(ctx).Table("users").Omit("updated_at").Create(&user)
+	if result.Error != nil {
+		return 0, result.Error
+	}
+	return user.ID, nil
 }
 
 func (r *UserRepo) Get(ctx context.Context, id int) (model.User, error) {
 	var user model.User
-	if err := r.DB.Table("users").Unscoped().First(&user, id).Error; err != nil {
-		if errors.Is(err, sql.ErrNoRows) {
+	if err := r.DB.Table("users").Unscoped().Omit("password_hash").First(&user, id).Error; err != nil {
+		if errors.Is(err, gorm.ErrRecordNotFound) {
 			return model.User{}, model.ErrRecordNotFound
 		}
 		return model.User{}, err
@@ -43,13 +46,21 @@ func (r *UserRepo) Get(ctx context.Context, id int) (model.User, error) {
 	return user, nil
 }
 
-func (r *UserRepo) Update(ctx context.Context, user model.User) error {
-	result := r.DB.WithContext(ctx).Table("users").Where("email = ?", user.Email).Update("password_hash", user.PasswordHash)
+func (r *UserRepo) Update(ctx context.Context, user model.Login) error {
+	result := r.DB.WithContext(ctx).Table("users").Where("email = ?", user.Email).Update("password_hash", user.Password)
 	if result.Error != nil {
 		return result.Error
 	}
 	if result.RowsAffected == 0 {
-		return gorm.ErrRecordNotFound
+		return model.ErrRecordNotFound
 	}
 	return nil
+}
+
+func (r *UserRepo) TestCreate(ctx context.Context, user model.User) (string, error) {
+	result := r.DB.WithContext(ctx).Table("users").Omit("deleted_at").Create(&user)
+	if result.Error != nil {
+		return "", result.Error
+	}
+	return user.Email, nil
 }

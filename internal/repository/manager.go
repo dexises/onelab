@@ -11,14 +11,14 @@ import (
 )
 
 type IUserRepository interface {
-	Create(ctx context.Context, user model.User) error
+	Create(ctx context.Context, user model.User) (uint, error)
 	Get(ctx context.Context, id int) (model.User, error)
-	Update(ctx context.Context, user model.User) error
+	Update(ctx context.Context, user model.Login) error
 	GetByEmail(ctx context.Context, email string) (model.User, error)
 }
 
 type IBookRepository interface {
-	Create(ctx context.Context, book model.Book) error
+	Create(ctx context.Context, book model.Book) (uint, error)
 	Get(ctx context.Context, id int) (model.Book, error)
 	GetAll(ctx context.Context) ([]model.Book, error)
 }

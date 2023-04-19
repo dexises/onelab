@@ -5,6 +5,6 @@ import (
 )
 
 type JwtCustomClaims struct {
-	Name string `json:"name"`
-	jwt.RegisteredClaims
+	Email string `json:"email"`
+	jwt.StandardClaims
 }

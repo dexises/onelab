@@ -29,9 +29,12 @@ func (r *BookRepo) Get(ctx context.Context, id int) (model.Book, error) {
 	return book, nil
 }
 
-func (r *BookRepo) Create(ctx context.Context, book model.Book) error {
-	result := r.DB.WithContext(ctx).Table("books").Omit("deleted_at").Create(&book)
-	return result.Error
+func (r *BookRepo) Create(ctx context.Context, book model.Book) (uint, error) {
+	result := r.DB.WithContext(ctx).Table("books").Create(&book)
+	if result.Error != nil {
+		return 0, result.Error
+	}
+	return book.ID, nil
 }
 
 func (r *BookRepo) GetAll(ctx context.Context) ([]model.Book, error) {

@@ -16,6 +16,21 @@ import (
 	_ "github.com/joho/godotenv/autoload"
 )
 
+// @title OnelabProject
+// @version 1.0
+// @description Api server for library
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name dexises
+// @contact.email omashevadlet@gmail.com
+
+// @host localhost:8080
+// @BasePath /api/v1
+
+// @securityDefinitions.apiKey ApiKeyAuth
+// @in header
+// @name Authorization
+
 func main() {
 	log.Fatalf(fmt.Sprintf("Service shut down %v", run()))
 }

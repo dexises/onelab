@@ -7,7 +7,7 @@ import (
 )
 
 type IBookService interface {
-	Create(ctx context.Context, book model.Book) error
+	Create(ctx context.Context, book model.Book) (uint, error)
 	Get(ctx context.Context, id int) (model.Book, error)
 	GetAll(ctx context.Context) ([]model.Book, error)
 }
@@ -22,10 +22,14 @@ func NewBookService(repo *repository.Manager) *BookService {
 	}
 }
 
-func (s BookService) Create(ctx context.Context, book model.Book) error {
+func (s BookService) Create(ctx context.Context, book model.Book) (uint, error) {
 	//TODO validation
-	err := s.Repo.Book.Create(ctx, book)
-	return err
+	id, err := s.Repo.Book.Create(ctx, book)
+	if err != nil {
+		return 0, err
+	}
+
+	return id, nil
 }
 
 func (s BookService) Get(ctx context.Context, id int) (model.Book, error) {
