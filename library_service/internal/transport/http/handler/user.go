@@ -109,6 +109,7 @@ func (h Manager) GetUserByID(c echo.Context) error {
 // @Accept       json
 // @Produce      json
 // @Param 		 id path int true "User ID"
+// @Param        input body model.Login  true  "Create account"
 // @Success 200 {string} string "User successfully updated"
 // @Failure 400,404 {object} errorResponse
 // @Failure 500 {object} errorResponse

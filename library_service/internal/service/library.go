@@ -48,10 +48,12 @@ func (s LibraryService) GiveBook(ctx context.Context, item model.CreateBookReade
 	if book.Price > user.Balance {
 		return errors.New(fmt.Sprint("Not enough balance to borrow book"))
 	}
-	item.TransactionID, err = s.TransactionService.CreateTransaction(ctx, item.BookID, item.ReaderID, book.Price, user.Balance)
-	if err != nil {
-		return errors.New(fmt.Sprint("Failed to create transaction"))
-	}
+	//когда делаешь запрос на http://localhost:9090/transactions с одного микросервиса на другой он все время возвращает
+	//ошибку connect: connection refused, однако когда делаешь запрос с постмана все работает, не могу понять с чем ошибка
+	//item.TransactionID, err = s.TransactionService.CreateTransaction(ctx, item.BookID, item.ReaderID, book.Price, user.Balance)
+	//if err != nil {
+	//	return err
+	//}
 	return s.Repo.Library.GiveBook(ctx, item)
 }
 

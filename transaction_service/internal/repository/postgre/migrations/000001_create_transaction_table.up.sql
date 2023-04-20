@@ -4,5 +4,5 @@ create table if not exists transactions (
     user_id INTEGER not null,
     book_price INTEGER NOT NULL ,
     user_balance INTEGER NOT NULL ,
-    borrow_date timestamp(0) with time zone NOT NULL DEFAULT NOW()
+    transfer_date timestamp(0) with time zone NOT NULL DEFAULT NOW()
 );

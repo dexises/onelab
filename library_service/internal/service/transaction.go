@@ -34,17 +34,20 @@ func (s *TransactionService) CreateTransaction(ctx context.Context, bookID uint,
 		BookPrice:   price,
 		UserBalance: balance,
 	}
+	fmt.Println(data)
+	fmt.Println(s.url)
 
 	jsonData, err := json.Marshal(data)
 	if err != nil {
 		return 0, err
 	}
 
-	req, err := http.NewRequestWithContext(ctx, http.MethodPost, s.url+"/transactions", bytes.NewReader(jsonData))
+	req, err := http.NewRequestWithContext(ctx, http.MethodPost, s.url, bytes.NewReader(jsonData))
 	if err != nil {
 		return 0, err
 	}
 	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("accept", "application/json")
 
 	resp, err := s.client.Do(req)
 	if err != nil {
@@ -57,6 +60,7 @@ func (s *TransactionService) CreateTransaction(ctx context.Context, bookID uint,
 	if err != nil {
 		return 0, err
 	}
+	fmt.Println(transactionResponse.Success)
 
 	if !transactionResponse.Success {
 		return 0, errors.New(fmt.Sprintf("Failed to create transaction: %s", transactionResponse.Message))

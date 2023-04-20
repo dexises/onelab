@@ -31,7 +31,7 @@ func New() *Config {
 
 	cfg.JwtToken = getEnv("JwtTokenSecret", "abracadabra")
 
-	cfg.TransactionServiceURL = getEnv("TransactionServiceURL", "http://localhost:9090")
+	cfg.TransactionServiceURL = getEnv("TransactionServiceURL", "http://localhost:9090/transactions")
 
 	cfg.DB.Host = getEnv("DB_HOST", "postgres")
 	cfg.DB.Port = getEnv("DB_PORT", "5432")

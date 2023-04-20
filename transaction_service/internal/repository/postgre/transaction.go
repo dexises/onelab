@@ -3,6 +3,7 @@ package postgre
 import (
 	"context"
 	"onelab/internal/model"
+	"time"
 
 	"gorm.io/gorm"
 )
@@ -18,6 +19,7 @@ func NewTransactionRepo(db *gorm.DB) *TransactionRepo {
 }
 
 func (r *TransactionRepo) CreateTransaction(ctx context.Context, transactions model.TransactionCreate) (uint, error) {
+	transactions.TransferDate = time.Now()
 	result := r.DB.WithContext(ctx).Table("transactions").Create(&transactions)
 	if result.Error != nil {
 		return 0, result.Error

@@ -157,17 +157,6 @@ const docTemplate = `{
                     "Library"
                 ],
                 "summary": "Lists of borrowed books with income",
-                "parameters": [
-                    {
-                        "description": "List of borrowed books with income",
-                        "name": "input",
-                        "in": "body",
-                        "required": true,
-                        "schema": {
-                            "$ref": "#/definitions/model.BookRentSummary"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -452,6 +441,15 @@ const docTemplate = `{
                         "name": "id",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "description": "Create account",
+                        "name": "input",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.Login"
+                        }
                     }
                 ],
                 "responses": {
@@ -523,29 +521,8 @@ const docTemplate = `{
                 "book_title": {
                     "type": "string"
                 },
-                "createdAt": {
-                    "description": "` + "`" + `json:\"created_at\"` + "`" + `",
-                    "type": "string"
-                },
-                "id": {
-                    "type": "integer"
-                },
                 "reader_id": {
                     "type": "integer"
-                },
-                "returnedAt": {
-                    "description": "` + "`" + `json:\"returned_at\"` + "`" + `",
-                    "type": "string"
-                },
-                "takenAt": {
-                    "description": "` + "`" + `json:\"taken_at\"` + "`" + `",
-                    "type": "string"
-                },
-                "transactionID": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "type": "string"
                 }
             }
         },
@@ -569,20 +546,8 @@ const docTemplate = `{
                 "book_id": {
                     "type": "integer"
                 },
-                "createdAt": {
-                    "type": "string"
-                },
                 "reader_id": {
                     "type": "integer"
-                },
-                "takenAt": {
-                    "type": "string"
-                },
-                "transactionID": {
-                    "type": "integer"
-                },
-                "updatedAt": {
-                    "type": "string"
                 }
             }
         },

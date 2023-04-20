@@ -63,7 +63,6 @@ func (h Manager) ReturnBook(c echo.Context) error {
 // @Description  Lists of borrowed books with income
 // @Accept       json
 // @Produce      json
-// @Param        input body model.BookRentSummary true  "List of borrowed books with income"
 // @Success 200 {object} model.BookRentSummary
 // @Failure 500 {object} errorResponse
 // @Router        /library/all [get]

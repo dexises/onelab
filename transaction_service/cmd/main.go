@@ -12,7 +12,6 @@ import (
 	"onelab/internal/service"
 	"onelab/internal/transport/http"
 	"onelab/internal/transport/http/handler"
-
 )
 
 func main() {
