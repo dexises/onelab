@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXISTS books (
+    id BIGSERIAL PRIMARY KEY,
+    title TEXT UNIQUE NOT NULL,
+    author TEXT NOT NULL,
+    price INT NOT NULL,
+    income INTEGER
+);

@@ -1,0 +1,117 @@
+version: '3'
+
+services:
+  library_service:
+    container_name: library_service
+    restart: always
+    environment:
+      - HTTP_PORT=:8080
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_NAME=postgres
+      - DB_SSLMODE=disable
+    build: ./library_service/
+    ports:
+      - "8080:8080"
+    depends_on:
+      - migrate_library
+    networks:
+      - library_network
+
+  library_db:
+    image: postgres:alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
+    restart: always
+    networks:
+      - library_network
+
+  migrate_library:
+    image: migrate/migrate
+    depends_on:
+      - library_db
+    restart: on-failure:5
+    networks:
+      - library_network
+    volumes:
+      - ./library_service/internal/repository/postgre/migrations:/migrations
+    command:
+      [
+        "-path",
+        "/migrations",
+        "-database",
+        "postgres://postgres:postgres@postgres:5432/postgres?sslmode=disable",
+        "up"
+      ]
+
+      #
+  transaction_service:
+    container_name: transaction_service
+    restart: on-failure:5
+    environment:
+      - HTTP_PORT=:9090
+      - DB_HOST=postgre
+      - DB_PORT=5432
+      - DB_USER=postgres
+      - DB_PASS=postgres
+      - DB_NAME=postgre
+      - DB_SSLMODE=disable
+    build: ./transaction_service/
+    ports:
+      - "9090:9090"
+    depends_on:
+      - migrate_transaction
+    networks:
+      - transaction_network
+
+  transaction_db:
+    image: postgres:9.6.10
+    ports:
+      - 5961:5432
+    container_name: postgre
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgre
+    restart: on-failure:5
+    networks:
+      - transaction_network
+
+  migrate_transaction:
+    image: migrate/migrate
+    depends_on:
+      - transaction_db
+    restart: on-failure:5
+    networks:
+      - transaction_network
+    volumes:
+      - ./transaction_service/internal/repository/postgre/migrations:/migrations
+    command:
+      [
+        "-path",
+        "/migrations",
+        "-database",
+        "postgres://postgres:postgres@postgre:5432/postgre?sslmode=disable",
+        "up"
+      ]
+
+networks:
+ library_network:
+   driver: bridge
+   name: library_network
+ transaction_network:
+   driver: bridge
+   name: transaction_network
+
+
+
+ 
+volumes:
+  transaction_db_volume:

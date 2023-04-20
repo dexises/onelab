@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="08029e9a-a232-4838-b2e7-7412bcd79433" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/onelab.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/onelab.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sqldialects.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/main.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/docs.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/swagger.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/swagger.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/config/config.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/jsonlog/jsonlog.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/model/book.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/model/books_reader.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/model/jwt.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/model/user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/manager.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/mocks/mocks.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/book.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/library.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/migrations/000001_create_user_table.down.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/migrations/000001_create_user_table.up.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/migrations/000002_create_books_table.down.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/migrations/000002_create_books_table.up.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/migrations/000003_create_readers_table.down.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/migrations/000003_create_readers_table.up.sql" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/postgre.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/repository/postgre/user_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/service/book.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/service/library.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/service/manager.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/service/user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/service/user_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/transport/http/handler/book.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/transport/http/handler/library.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/transport/http/handler/manager.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/transport/http/handler/response.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/transport/http/handler/user.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/transport/http/handler/user_test.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/transport/http/middleware/middleware.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/transport/http/router.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/transport/http/server.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/makefile" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+        <option value="Go Application" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../Go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2OJm0GXaTCkJPlzAqZ18qrqbHxD" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go Application&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Projects/onelab/library_service&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.grazie&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
+    ]
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Projects\onelab\library_service" />
+      <recent name="V:\Projects\onelab" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="E:\Projects\onelab\transaction_service\cmd" />
+      <recent name="E:\Projects\onelab\cmd" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Go Test.TestManager_CreateUser in onelab/internal/transport/http/handler">
+    <configuration name="go build onelab/cmd/api" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="onelab" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="onelab/cmd/api" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/cmd/api/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestManager_CreateUser in onelab/internal/transport/http/handler" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="onelab" />
+      <working_directory value="$PROJECT_DIR$/internal/transport/http/handler" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="onelab/internal/transport/http/handler" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestManager_CreateUser\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestUserRepo_Create in onelab/internal/repository/postgre" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="onelab" />
+      <working_directory value="$PROJECT_DIR$/internal/repository/postgre" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="onelab/internal/repository/postgre" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestUserRepo_Create\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestUserServiceValidID in onelab/internal/service" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="onelab" />
+      <working_directory value="$PROJECT_DIR$/internal/service" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="onelab/internal/service" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestUserServiceValidID\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestUserService_Create in onelab/internal/service" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="onelab" />
+      <working_directory value="$PROJECT_DIR$/internal/service" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="onelab/internal/service" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestUserService_Create\E$" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.TestManager_CreateUser in onelab/internal/transport/http/handler" />
+        <item itemvalue="Go Test.TestUserRepo_Create in onelab/internal/repository/postgre" />
+        <item itemvalue="Go Test.TestUserService_Create in onelab/internal/service" />
+        <item itemvalue="Go Test.TestUserServiceValidID in onelab/internal/service" />
+        <item itemvalue="Go Build.go build onelab/cmd/api" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>
